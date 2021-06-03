@@ -1,27 +1,42 @@
 import datetime
+
 import pywhatkit
 
-print("Example: Tell me the time, Play Sun Goes Down, Send a mail, Send a WhatsApp message, Search Hello World, "
+print("Example: Tell me the time, Play Sun Goes Down, Send a mail, Search Hello World"
       "Info about Python")
 
-command = input("Enter a command: ")
 
-if 'time' in command:
-    now = datetime.datetime.now()
-    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-    print('The time is' + dt_string)
+def run_chatbot():
+    command = input("Enter a command: ")
 
-if 'play' in command:
-    song = command.replace('play', '')
-    pywhatkit.playonyt(song)
+    if 'time' in command:
+        now = datetime.datetime.now()
+        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+        print('The time is ' + dt_string)
 
-if 'info about' in command:
-    about = command.replace('info about', '')
-    print(pywhatkit.info(about))
+    elif 'play' in command:
+        song = command.replace('play', '')
+        pywhatkit.playonyt(song)
 
-if 'search' in command:
-    search = command.replace('search', '')
-    pywhatkit.search(search)
+    elif 'info about' in command:
+        about = command.replace('info about', '')
+        pywhatkit.info(about)
 
-else:
-    print("Try: what's the time, play Sun Goes Down, info about Python, search Hello World.")
+    elif 'search' in command:
+        search = command.replace('search', '')
+        pywhatkit.search(search)
+
+    elif 'mail' in command:
+        sender = input("From: ")
+        password = input("Password: ")
+        title = input("Title: ")
+        body = input("Body: ")
+        to = input("To: ")
+        pywhatkit.send_mail(sender, password, title, body, to)
+
+    else:
+        print("Try: Tell me the time, Play Sun Goes Down, Send a mail, Search Hello World, Info about Python")
+
+
+while True:
+    run_chatbot()
